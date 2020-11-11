@@ -2,6 +2,7 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Message $message
+ *
  */
 ?>
 <div class="row">
@@ -45,7 +46,7 @@
             </div>
             <div class="related">
                 <h4><?= __('Related Comments') ?></h4>
-                <?php if (!empty($message->comments)) : ?>
+               <?php if (!empty($message->comments)) : ?>
                 <div class="table-responsive">
                     <table>
                         <tr>
@@ -67,11 +68,33 @@
                                 <?= $this->Form->postLink(__('Delete'), ['controller' => 'Comments', 'action' => 'delete', $comments->id], ['confirm' => __('Are you sure you want to delete # {0}?', $comments->id)]) ?>
                             </td>
                         </tr>
-                        <?php endforeach; ?>
+                        <?php endforeach; ?> 
+                        
+
                     </table>
+                    
                 </div>
                 <?php endif; ?>
             </div>
+
+            <div class="column-responsive column-80">
+        <div class="messages form content">
+            <?= $this->Form->create() ?>
+            <fieldset>
+                <legend><?= __('Add comments') ?></legend>
+                <?php
+                    echo $this->Form->control('commentContent');
+                        
+                   
+                ?>
+            </fieldset>
+            <?= $this->Form->button(__('Submit')) ?>
+            <?= $this->Form->end() ?>
+        </div>
+       
+     
+    </div>
+
         </div>
     </div>
 </div>

@@ -7,6 +7,7 @@ namespace App\Controller;
  * Messages Controller
  *
  * @property \App\Model\Table\MessagesTable $Messages
+ *
  * @method \App\Model\Entity\Message[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class MessagesController extends AppController
@@ -22,7 +23,7 @@ class MessagesController extends AppController
             'contain' => ['Users'],
         ];
         $messages = $this->paginate($this->Messages);
-
+        
         $this->set(compact('messages'));
     }
 
@@ -38,8 +39,28 @@ class MessagesController extends AppController
         $message = $this->Messages->get($id, [
             'contain' => ['Users', 'Comments'],
         ]);
+        // $query = $this->Comments->find('all', [
+        //     'conditions' => ['comments.id_message' => '1']
+        // ])->all();
+        
+        // foreach ($query as $value) {
+        //     $message_idd = $value->content;   
+        // }
+            //$this->set('message_idd', $message_idd);
+        
+        // $comments = $this->Comments->get($message_id, [
+        //     'contain' => []
+        // ]);
+        
+       if ($this->request->is('post')) {
+            $commentContent = $this->request->getData('commentContent');
+            //debug($this->request);
+           $message = $this->Messages->addNewComment($id, $commentContent);
+           $this->redirect('/messages/view/'.$id);
+       }
 
         $this->set(compact('message'));
+        
     }
 
     /**

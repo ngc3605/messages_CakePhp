@@ -98,4 +98,16 @@ class MessagesTable extends Table
 
         return $rules;
     }
+
+    public function addNewComment($id_message, $commentContent){
+        $query = $this->Comments->query();
+       
+        $query->insert(['content', 'message_id', 'author_id'])
+            ->values([
+                'content' => $commentContent,
+                'message_id' => $id_message,
+                'author_id' => 1
+            ])->execute();
+
+    }
 }
