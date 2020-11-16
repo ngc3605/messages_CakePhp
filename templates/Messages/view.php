@@ -46,7 +46,7 @@
             </div>
             <div class="related">
                 <h4><?= __('Related Comments') ?></h4>
-               <?php if (!empty($message->comments)) : ?>
+               
                 <div class="table-responsive">
                     <table>
                         <tr>
@@ -54,19 +54,15 @@
                             <th><?= __('Author') ?></th>
                             <th><?= __('Comment') ?></th>
                            
-                            <th class="actions"><?= __('Actions') ?></th>
+                            
                         </tr>
-                        <?php foreach ($message->comments as $comments) : ?>
+                        <?php foreach ($allComments as $value) : ?>
                         <tr>
                             
-                            <td><?= h($message->user->name) ?></td>
-                            <td><?= h($comments->content) ?></td>
+                            <td><?= h($value->user->name) ?></td>
+                            <td><?= h($value->content) ?></td>
                             
-                            <td class="actions">
-                                <?= $this->Html->link(__('View'), ['controller' => 'Comments', 'action' => 'view', $comments->id]) ?>
-                                <?= $this->Html->link(__('Edit'), ['controller' => 'Comments', 'action' => 'edit', $comments->id]) ?>
-                                <?= $this->Form->postLink(__('Delete'), ['controller' => 'Comments', 'action' => 'delete', $comments->id], ['confirm' => __('Are you sure you want to delete # {0}?', $comments->id)]) ?>
-                            </td>
+                          
                         </tr>
                         <?php endforeach; ?> 
                         
@@ -74,7 +70,7 @@
                     </table>
                     
                 </div>
-                <?php endif; ?>
+      
             </div>
 
             <div class="column-responsive column-80">

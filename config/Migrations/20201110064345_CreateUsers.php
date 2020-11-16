@@ -7,7 +7,8 @@ class CreateUsers extends AbstractMigration
 {
   public function up(){
         $users = $this->table('users');
-        $users->addColumn('name', 'string', []);
+        $users->addColumn('name', 'string', [])
+        ->addIndex(['name'], ['unique' => true]);
         $users->save();
    }
    public function down(){

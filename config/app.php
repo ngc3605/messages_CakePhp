@@ -100,6 +100,7 @@ return [
             'className' => FileEngine::class,
             'path' => CACHE,
             'url' => env('CACHE_DEFAULT_URL', null),
+            'apc' => ['engine' => 'Apc']
         ],
 
         /*
@@ -412,6 +413,7 @@ return [
      * To use database sessions, load the SQL file located at config/schema/sessions.sql
      */
     'Session' => [
-        'defaults' => 'php',
-    ],
+    'defaults' => 'php',
+    
+]
 ];
