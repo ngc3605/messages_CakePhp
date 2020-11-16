@@ -12,6 +12,10 @@ namespace App\Controller;
  */
 class MessagesController extends AppController
 {
+
+    
+
+  
     /**
      * Index method
      *
@@ -19,12 +23,21 @@ class MessagesController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Users'],
-        ];
-        $messages = $this->paginate($this->Messages);
-        
-        $this->set(compact('messages'));
+
+            if($this->request->is('get') && !$this->request->getSession()->read('Session')){
+               
+                $this->redirect('/users/add');
+
+            }
+
+            
+            $this->paginate = [
+                'contain' => ['Users'],
+            ];
+            
+            $messages = $this->paginate($this->Messages, ['limit'=> '5']);
+            $this->set(compact('messages'));
+            
     }
 
     /**
@@ -37,29 +50,21 @@ class MessagesController extends AppController
     public function view($id = null)
     {
         $message = $this->Messages->get($id, [
-            'contain' => ['Users', 'Comments'],
+            'contain' => ['Users'],
         ]);
-        // $query = $this->Comments->find('all', [
-        //     'conditions' => ['comments.id_message' => '1']
-        // ])->all();
         
-        // foreach ($query as $value) {
-        //     $message_idd = $value->content;   
-        // }
-            //$this->set('message_idd', $message_idd);
         
-        // $comments = $this->Comments->get($message_id, [
-        //     'contain' => []
-        // ]);
-        
+        $allComments = $this->Messages->getCommentsForMessage($id);
+       
        if ($this->request->is('post')) {
             $commentContent = $this->request->getData('commentContent');
             //debug($this->request);
-           $message = $this->Messages->addNewComment($id, $commentContent);
+           $message = $this->Messages->addNewComment($id, $commentContent,  $this->request->getSession()->read('Session')['name']);
            $this->redirect('/messages/view/'.$id);
        }
 
         $this->set(compact('message'));
+        $this->set(compact('allComments'));
         
     }
 
@@ -70,18 +75,27 @@ class MessagesController extends AppController
      */
     public function add()
     {
-        $message = $this->Messages->newEmptyEntity();
+        //$message = $this->Messages->newEmptyEntity();
         if ($this->request->is('post')) {
-            $message = $this->Messages->patchEntity($message, $this->request->getData());
-            if ($this->Messages->save($message)) {
-                $this->Flash->success(__('The message has been saved.'));
+            $title = $this->request->getData()['title'];
+            $content = $this->request->getData()['content'];
+            $preview = $this->request->getData()['preview'];
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The message could not be saved. Please, try again.'));
+            $user_id = $this->Messages->getUserId( $this->request->getSession()->read('Session')['name'] );
+            
+            $message = $this->Messages->newEmptyEntity();
+            $this->Messages->patchEntity($message, [
+            'title' => $title,
+                'content' => $content,
+                'preview' => $preview,
+                'author_id' => $user_id
+        ]);
+        $this->Messages->save($message);
+        $this->redirect('/');
         }
-        $users = $this->Messages->Users->find('list', ['limit' => 200]);
-        $this->set(compact('message', 'users'));
+      
+
+
     }
 
     /**
