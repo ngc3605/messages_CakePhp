@@ -99,15 +99,48 @@ class MessagesTable extends Table
         return $rules;
     }
 
-    public function addNewComment($id_message, $commentContent){
+    public function addNewComment($id_message, $commentContent, $name){
+        
+        $user = $this->Users->find('all', [
+            'fields' => ['id'],
+            'conditions' => ['users.name' => $name],
+        ]);
+        $user_id = '';
+        foreach ($user as $value) {
+            $user_id = $value->id;
+        }
         $query = $this->Comments->query();
-       
         $query->insert(['content', 'message_id', 'author_id'])
             ->values([
                 'content' => $commentContent,
                 'message_id' => $id_message,
-                'author_id' => 1
+                'author_id' => $user_id
             ])->execute();
 
+    }
+    public function getCommentsForMessage($id) {
+
+        $comments = $this->Comments->find('all', [
+            'contain' => ['Users'],
+            'condition' => ['message_id' == $id]
+        ]);
+        
+        
+        return $comments;
+    }
+    public function getUserId($name){
+        
+        $user = $this->Users->find('all', [
+            'conditions' => ['users.name' => $name],
+        ]);
+        
+        $user_id = '';
+        foreach ($user as $value) {
+            $user_id = $value->id;
+            
+        }
+       
+        return $user_id;
+     
     }
 }
