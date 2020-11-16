@@ -19,7 +19,7 @@ class UsersController extends AppController
     public function index()
     {
         $users = $this->paginate($this->Users);
-
+        
         $this->set(compact('users'));
     }
 
@@ -35,7 +35,7 @@ class UsersController extends AppController
         $user = $this->Users->get($id, [
             'contain' => [],
         ]);
-
+        
         $this->set(compact('user'));
     }
 
@@ -46,17 +46,64 @@ class UsersController extends AppController
      */
     public function add()
     {
-        $user = $this->Users->newEmptyEntity();
-        if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+
+
+        $user = $this->Users->newEmptyEntity();
+        
+            if ($this->request->is('post')) {
+              
+               $this->request->getSession()->write('Session', $this->request->getData());
+               $sessionName = $this->request->getSession()->read('Session')['name'];
+               $userName = $this->Users->find('all', [
+                'conditions' => ['users.name' => $sessionName]
+               ]);
+               
+               $checkName = '';
+
+               foreach ($userName as $value) {
+                    $checkName = $value->name;
+                }
+                    if($checkName){
+                       $this->redirect('/');
+                        
+                    } else {
+                        
+                        $user = $this->Users->patchEntity($user, $this->request->getData());
+                        if ($this->Users->save($user)) {
+                        $this->Flash->success(__('Пользователь сохранен'));
+
+                        $this->redirect('/');
+                }
+                $this->set(compact('user'));
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+                
+               
+               //debug($userName);
+           //      try {
+           //          $user = $this->Users->patchEntity($user, $this->request->getData());
+           //      if ($this->Users->save($user)) {
+           //          $this->Flash->success(__('Пользователь сохранен'));
+
+           //          return $this->redirect(['action' => 'index']);
+           //      }
+                
+           // } catch(Error $e){
+           //      echo 'Выброшено исключение: ',  $e->getMessage(), "\n";
+           // }
+            
         }
+
+        
+
+        
         $this->set(compact('user'));
+    }
+
+    public function logout(){
+        $this->request->getSession()->destroy();
+        $this->redirect('/');
+
     }
 
     /**
