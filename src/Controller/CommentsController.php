@@ -22,7 +22,6 @@ class CommentsController extends AppController
             'contain' => ['Users', 'Messages'],
         ];
         $comments = $this->paginate($this->Comments);
-
         $this->set(compact('comments'));
     }
 
@@ -38,7 +37,6 @@ class CommentsController extends AppController
         $comment = $this->Comments->get($id, [
             'contain' => ['Users', 'Messages'],
         ]);
-
         $this->set(compact('comment'));
     }
 
@@ -54,7 +52,6 @@ class CommentsController extends AppController
             $comment = $this->Comments->patchEntity($comment, $this->request->getData());
             if ($this->Comments->save($comment)) {
                 $this->Flash->success(__('The comment has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The comment could not be saved. Please, try again.'));
@@ -80,7 +77,6 @@ class CommentsController extends AppController
             $comment = $this->Comments->patchEntity($comment, $this->request->getData());
             if ($this->Comments->save($comment)) {
                 $this->Flash->success(__('The comment has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The comment could not be saved. Please, try again.'));
@@ -106,7 +102,6 @@ class CommentsController extends AppController
         } else {
             $this->Flash->error(__('The comment could not be deleted. Please, try again.'));
         }
-
         return $this->redirect(['action' => 'index']);
     }
 }

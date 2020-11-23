@@ -35,7 +35,6 @@ class UsersController extends AppController
         $user = $this->Users->get($id, [
             'contain' => [],
         ]);
-        
         $this->set(compact('user'));
     }
 
@@ -46,64 +45,30 @@ class UsersController extends AppController
      */
     public function add()
     {
-
-
-
-        $user = $this->Users->newEmptyEntity();
-        
-            if ($this->request->is('post')) {
-              
-               $this->request->getSession()->write('Session', $this->request->getData());
-               $sessionName = $this->request->getSession()->read('Session')['name'];
-               $userName = $this->Users->find('all', [
-                'conditions' => ['users.name' => $sessionName]
-               ]);
-               
-               $checkName = '';
-
-               foreach ($userName as $value) {
-                    $checkName = $value->name;
-                }
-                    if($checkName){
-                       $this->redirect('/');
-                        
-                    } else {
-                        
-                        $user = $this->Users->patchEntity($user, $this->request->getData());
-                        if ($this->Users->save($user)) {
-                        $this->Flash->success(__('Пользователь сохранен'));
-
-                        $this->redirect('/');
-                }
-                $this->set(compact('user'));
+        if ($this->request->is('post')) {
+            $userExist = $this->Users->checkUser($this->request->getData());
+            if($userExist){
+                $this->request->getSession()->write('Session', 
+                    $this->request->getData()['name']
+                );
+            } else {
+                $user = $this->Users->addUser($this->request->getData());
+                if($user){
+                    $this->request->getSession()->write('Session', 
+                        $this->request->getData()['name']
+                    );
+                }  
             }
-                
-               
-               //debug($userName);
-           //      try {
-           //          $user = $this->Users->patchEntity($user, $this->request->getData());
-           //      if ($this->Users->save($user)) {
-           //          $this->Flash->success(__('Пользователь сохранен'));
-
-           //          return $this->redirect(['action' => 'index']);
-           //      }
-                
-           // } catch(Error $e){
-           //      echo 'Выброшено исключение: ',  $e->getMessage(), "\n";
-           // }
-            
+            $this->redirect(
+                ['controller' => 'Messages', 'action' => 'index']
+            );    
         }
-
-        
-
-        
-        $this->set(compact('user'));
     }
-
     public function logout(){
         $this->request->getSession()->destroy();
-        $this->redirect('/');
-
+        $this->redirect(
+            ['controller' => 'Messages', 'action' => 'index']
+        );
     }
 
     /**
@@ -146,11 +111,7 @@ class UsersController extends AppController
         } else {
             $this->Flash->error(__('The user could not be deleted. Please, try again.'));
         }
-
         return $this->redirect(['action' => 'index']);
     }
-
-    public function checkUser(){
-        
-    }
+    
 }

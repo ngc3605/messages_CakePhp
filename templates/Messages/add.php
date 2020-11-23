@@ -12,7 +12,7 @@
         </div>
     </aside>
     <div class="column-responsive column-80">
-        <div class="messages form content">
+        <div class=" form content">
             <?= $this->Form->create() ?>
             <fieldset>
                 <legend><?= __('Добавить сообщение') ?></legend>

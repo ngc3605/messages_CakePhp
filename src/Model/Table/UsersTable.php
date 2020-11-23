@@ -7,7 +7,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
-
+use Cake\ORM\TableRegistry;
 /**
  * Users Model
  *
@@ -27,6 +27,8 @@ use Cake\Validation\Validator;
  */
 class UsersTable extends Table
 {
+
+   
     /**
      * Initialize method
      *
@@ -41,7 +43,6 @@ class UsersTable extends Table
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
     }
-
     /**
      * Default validation rules.
      *
@@ -62,4 +63,39 @@ class UsersTable extends Table
 
         return $validator;
     }
+    public function addUser($data){
+        $users = TableRegistry::getTableLocator()->get('Users');
+        $name = $data['name'];
+        $query = $users->query();
+        $query->insert(['name'])
+            ->values([
+                'name' => $name,
+        ])->execute();
+        $user_id = $users->getUserId($name);
+        return $user_id;
+    }
+    public function checkUser($data){
+        $name = $data['name'];
+        $users = TableRegistry::getTableLocator()->get('Users');
+        foreach ($users->find('all') as $row) {
+            if($row->name === $name) {
+                return true;
+            }
+        }
+        return false;
+    }
+    public function getUserId($name){
+        $id = '';
+        $users = TableRegistry::getTableLocator()->get('Users');
+        foreach ($users->find('all') as $row) {
+            if($row->name === $name) {
+                $id = $row->id;
+            }
+        }
+        if($id == ''){
+            $id = $users->addUser(['name' => $name]);
+        }
+        return $id;
+    }
 }
+

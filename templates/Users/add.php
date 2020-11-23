@@ -14,14 +14,15 @@
     <div class="column-responsive column-80">
         <div class="users form content">
            
-            <?= $this->Form->create($user) ?>
+            <?= $this->Form->create() ?>
             <fieldset>
-                <legend><?= __('Add User') ?></legend>
+                <legend><?= __('Войти') ?></legend>
                 <?php
                     echo $this->Form->control('name');
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
+            
             <?= $this->Form->end() ?>
         </div>
         

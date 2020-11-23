@@ -7,7 +7,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
-
+use Cake\ORM\TableRegistry;
 /**
  * Messages Model
  *
@@ -95,52 +95,26 @@ class MessagesTable extends Table
     public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn(['author_id'], 'Users'), ['errorField' => 'author_id']);
-
         return $rules;
     }
-
-    public function addNewComment($id_message, $commentContent, $name){
-        
-        $user = $this->Users->find('all', [
-            'fields' => ['id'],
-            'conditions' => ['users.name' => $name],
-        ]);
-        $user_id = '';
-        foreach ($user as $value) {
-            $user_id = $value->id;
+    public function addMessage($data, $user){
+        if($user == null) {
+            $user = 'guest';   
         }
-        $query = $this->Comments->query();
-        $query->insert(['content', 'message_id', 'author_id'])
-            ->values([
-                'content' => $commentContent,
-                'message_id' => $id_message,
-                'author_id' => $user_id
-            ])->execute();
-
-    }
-    public function getCommentsForMessage($id) {
-
-        $comments = $this->Comments->find('all', [
-            'contain' => ['Users'],
-            'condition' => ['message_id' == $id]
+        $users = TableRegistry::getTableLocator()->get('Users');
+        $messages = TableRegistry::getTableLocator()->get('Messages');
+        $title = $data['title'];
+        $content = $data['content'];
+        $preview = $data['preview'];
+        $user_id = $users->getUserId($user);
+        $message = $messages->newEmptyEntity();
+        $messages->patchEntity($message, [
+            'title' => $title,
+            'content' => $content,
+            'preview' => $preview,
+            'author_id' => $user_id
         ]);
-        
-        
-        return $comments;
-    }
-    public function getUserId($name){
-        
-        $user = $this->Users->find('all', [
-            'conditions' => ['users.name' => $name],
-        ]);
-        
-        $user_id = '';
-        foreach ($user as $value) {
-            $user_id = $value->id;
-            
-        }
-       
-        return $user_id;
-     
+        $messages->save($message);
+        return true; 
     }
 }

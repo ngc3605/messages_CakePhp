@@ -7,7 +7,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
-
+use Cake\ORM\TableRegistry;
 /**
  * Comments Model
  *
@@ -88,5 +88,26 @@ class CommentsTable extends Table
         $rules->add($rules->existsIn(['message_id'], 'Messages'), ['errorField' => 'message_id']);
 
         return $rules;
+    }
+    public function addNewComment($id_message, $commentContent, $user_id)
+    {
+        $comments = TableRegistry::getTableLocator()->get('Comments');
+        $query = $comments->query();
+        $query->insert(['content', 'message_id', 'author_id'])
+            ->values([
+                'content' => $commentContent,
+                'message_id' => $id_message,
+                'author_id' => $user_id
+            ])->execute();
+        return true;
+    }
+    public function getCommentsForMessage($id) 
+    {
+        $comments = TableRegistry::getTableLocator()->get('Comments');
+        $allComments = $comments->find('all', [
+            'conditions' => ['Comments.message_id' => $id],
+            'contain' => ['Users']
+        ]); 
+        return $allComments;
     }
 }

@@ -43,7 +43,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         
     </nav>
     <main class="main top-nav-title">
-        <h1>Привет <?=$this->request->getSession()->read('Session')['name'] ?> </h1> 
+        
         <div class="container">
             <?= $this->Flash->render() ?>
 

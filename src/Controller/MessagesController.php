@@ -22,21 +22,11 @@ class MessagesController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      */
     public function index()
-    {
-
-            if($this->request->is('get') && !$this->request->getSession()->read('Session')){
-               
-                $this->redirect('/users/add');
-
-            }
-
-            
-            $this->paginate = [
-                'contain' => ['Users'],
-            ];
-            
-            $messages = $this->paginate($this->Messages, ['limit'=> '5']);
-            $this->set(compact('messages'));
+    {            
+        $messages = $this->paginate($this->Messages, ['limit'=> '5',
+            'contain' => ['Users']
+        ]);
+        $this->set(compact('messages'));
             
     }
 
@@ -49,23 +39,29 @@ class MessagesController extends AppController
      */
     public function view($id = null)
     {
+        $this->loadModel('Users');
+        $this->loadModel('Comments');
         $message = $this->Messages->get($id, [
             'contain' => ['Users'],
         ]);
-        
-        
-        $allComments = $this->Messages->getCommentsForMessage($id);
-       
-       if ($this->request->is('post')) {
-            $commentContent = $this->request->getData('commentContent');
-            //debug($this->request);
-           $message = $this->Messages->addNewComment($id, $commentContent,  $this->request->getSession()->read('Session')['name']);
-           $this->redirect('/messages/view/'.$id);
-       }
-
+        $allComments = $this->Comments->getCommentsForMessage($id);
         $this->set(compact('message'));
         $this->set(compact('allComments'));
-        
+        if ($this->request->is('post')) {
+            $commentContent = $this->request->getData('commentContent');
+            if($this->request->getSession()->read('Session') != null){  
+                $userName = $this->request->getSession()->read('Session');
+            } else {
+                $userName = 'guest';
+            }
+            $user_id = $this->Users->getUserId($userName);
+            $newComment = $this->Comments->addNewComment($id, $commentContent, $user_id);
+            if($newComment){
+                $this->redirect(
+                    ['controller' => 'Messages', 'action' => 'index']
+                );
+            }
+        }    
     }
 
     /**
@@ -75,27 +71,13 @@ class MessagesController extends AppController
      */
     public function add()
     {
-        //$message = $this->Messages->newEmptyEntity();
+        
         if ($this->request->is('post')) {
-            $title = $this->request->getData()['title'];
-            $content = $this->request->getData()['content'];
-            $preview = $this->request->getData()['preview'];
-
-            $user_id = $this->Messages->getUserId( $this->request->getSession()->read('Session')['name'] );
-            
-            $message = $this->Messages->newEmptyEntity();
-            $this->Messages->patchEntity($message, [
-            'title' => $title,
-                'content' => $content,
-                'preview' => $preview,
-                'author_id' => $user_id
-        ]);
-        $this->Messages->save($message);
-        $this->redirect('/');
+            $this->Messages->addMessage($this->request->getData(), $this->request->getSession()->read('Session'));
+            $this->redirect(
+                ['controller' => 'Messages', 'action' => 'index']
+            );
         }
-      
-
-
     }
 
     /**
@@ -114,7 +96,6 @@ class MessagesController extends AppController
             $message = $this->Messages->patchEntity($message, $this->request->getData());
             if ($this->Messages->save($message)) {
                 $this->Flash->success(__('The message has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The message could not be saved. Please, try again.'));
@@ -139,7 +120,6 @@ class MessagesController extends AppController
         } else {
             $this->Flash->error(__('The message could not be deleted. Please, try again.'));
         }
-
         return $this->redirect(['action' => 'index']);
     }
 }
