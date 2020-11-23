@@ -92,13 +92,11 @@ class CommentsTable extends Table
     public function addNewComment($id_message, $commentContent, $user_id)
     {
         $comments = TableRegistry::getTableLocator()->get('Comments');
-        $query = $comments->query();
-        $query->insert(['content', 'message_id', 'author_id'])
-            ->values([
-                'content' => $commentContent,
-                'message_id' => $id_message,
-                'author_id' => $user_id
-            ])->execute();
+        $comment = $comments->newEmptyEntity();
+        $comment->content = $commentContent;
+        $comment->message_id = $id_message;
+        $comment->author_id = $user_id;
+        $comments->save($comment);
         return true;
     }
     public function getCommentsForMessage($id) 

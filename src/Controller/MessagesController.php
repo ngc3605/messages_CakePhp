@@ -54,7 +54,7 @@ class MessagesController extends AppController
             } else {
                 $userName = 'guest';
             }
-            $user_id = $this->Users->getUserId($userName);
+            $user_id = $this->Users->getUserIdByName($userName);
             $newComment = $this->Comments->addNewComment($id, $commentContent, $user_id);
             if($newComment){
                 $this->redirect(
@@ -100,8 +100,8 @@ class MessagesController extends AppController
             }
             $this->Flash->error(__('The message could not be saved. Please, try again.'));
         }
-        $users = $this->Messages->Users->find('list', ['limit' => 200]);
-        $this->set(compact('message', 'users'));
+        //$users = $this->Messages->Users->find('list', ['limit' => 200]);
+        $this->set(compact('message'));
     }
 
     /**

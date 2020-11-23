@@ -106,7 +106,7 @@ class MessagesTable extends Table
         $title = $data['title'];
         $content = $data['content'];
         $preview = $data['preview'];
-        $user_id = $users->getUserId($user);
+        $user_id = $users->getUserIdByName($user);
         $message = $messages->newEmptyEntity();
         $messages->patchEntity($message, [
             'title' => $title,

@@ -20,7 +20,6 @@
                     echo $this->Form->control('title');
                     echo $this->Form->control('preview');
                     echo $this->Form->control('content');
-                    // echo $this->Form->control('author_id', ['options' => $users]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Добавить')) ?>

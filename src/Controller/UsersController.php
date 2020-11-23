@@ -46,23 +46,16 @@ class UsersController extends AppController
     public function add()
     {
         if ($this->request->is('post')) {
-            $userExist = $this->Users->checkUser($this->request->getData());
-            if($userExist){
-                $this->request->getSession()->write('Session', 
-                    $this->request->getData()['name']
-                );
-            } else {
-                $user = $this->Users->addUser($this->request->getData());
-                if($user){
-                    $this->request->getSession()->write('Session', 
-                        $this->request->getData()['name']
-                    );
-                }  
-            }
+            $this->request->getSession()->read('Session');
+            $user = $this->Users->getUserIdByName($this->request->getData()['name']);
+            $userName = $this->request->getData()['name'];   
+            $this->request->getSession()->write('Session', $userName);
             $this->redirect(
-                ['controller' => 'Messages', 'action' => 'index']
-            );    
+                    ['controller' => 'Messages', 'action' => 'index']
+                );    
+            
         }
+                
     }
     public function logout(){
         $this->request->getSession()->destroy();

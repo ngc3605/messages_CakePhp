@@ -13,11 +13,10 @@
     </aside>
     <div class="column-responsive column-80">
         <div class="comments form content">
-            <?= $this->Form->create($comment) ?>
+            <?= $this->Form->create() ?>
             <fieldset>
                 <legend><?= __('Add Comment') ?></legend>
                 <?php
-                    echo $this->Form->control('author_id', ['options' => $users]);
                     echo $this->Form->control('content');
                     echo $this->Form->control('message_id', ['options' => $messages]);
                 ?>

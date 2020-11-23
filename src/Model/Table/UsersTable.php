@@ -42,6 +42,12 @@ class UsersTable extends Table
         $this->setTable('users');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
+        $this->hasMany('Messages', [
+            'foreignKey' => 'author_id',
+        ]);
+        $this->hasMany('Comments', [
+            'foreignKey' => 'author_id',
+        ]);
     }
     /**
      * Default validation rules.
@@ -63,39 +69,29 @@ class UsersTable extends Table
 
         return $validator;
     }
-    public function addUser($data){
+    public function addUser($data)
+    {
         $users = TableRegistry::getTableLocator()->get('Users');
         $name = $data['name'];
-        $query = $users->query();
-        $query->insert(['name'])
-            ->values([
-                'name' => $name,
-        ])->execute();
-        $user_id = $users->getUserId($name);
+        $user = $users->newEmptyEntity();
+        $user->name = $name;
+        $users->save($user);
+        $user_id = $users->getUserIdByName($name);
         return $user_id;
     }
-    public function checkUser($data){
-        $name = $data['name'];
+    public function getUserIdByName($name)
+    {
+        $user = '';
         $users = TableRegistry::getTableLocator()->get('Users');
-        foreach ($users->find('all') as $row) {
-            if($row->name === $name) {
-                return true;
-            }
+        $user = $users->find()
+            ->where(['name' => $name])
+            ->first();
+        if($user == ''){
+            $userId = $users->addUser(['name' => $name]);
+        } else {
+            $userId = $user->id;
         }
-        return false;
-    }
-    public function getUserId($name){
-        $id = '';
-        $users = TableRegistry::getTableLocator()->get('Users');
-        foreach ($users->find('all') as $row) {
-            if($row->name === $name) {
-                $id = $row->id;
-            }
-        }
-        if($id == ''){
-            $id = $users->addUser(['name' => $name]);
-        }
-        return $id;
+        return $userId;
     }
 }
 
