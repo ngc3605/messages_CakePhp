@@ -7,7 +7,7 @@
 <div class="messages form content">
             <?= $this->Form->create() ?>
             <fieldset>
-                <legend><?= __('Представьтесь') ?></legend>
+                <legend><?= __('Your name') ?></legend>
                 <?php
                     __($this->Form->control('user'));
                     

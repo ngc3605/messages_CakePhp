@@ -18,7 +18,7 @@
                     <th><?= $this->Paginator->sort('title') ?></th>
                     <th><?= $this->Paginator->sort('preview') ?></th>
                     <th><?= $this->Paginator->sort('author_id') ?></th>
-                    <th class="actions"><?= __('Действия') ?></th>
+                    <th class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -29,9 +29,9 @@
                     <td><?= h($message->preview) ?></td>
                     <td><?= $message->has('user') ? $this->Html->link($message->user->name, ['controller' => 'Users', 'action' => 'view', $message->user->id]) : '' ?></td>
                     <td class="actions">
-                        <?= $this->Html->link(__('Просмотреть'), ['action' => 'view', $message->id]) ?>
-                        <?= $this->Html->link(__('Редактировать'), ['action' => 'edit', $message->id]) ?>
-                        <?= $this->Form->postLink(__('Удалить'), ['action' => 'delete', $message->id], ['confirm' => __('Are you sure you want to delete # {0}?', $message->id)]) ?>
+                        <?= $this->Html->link(__('View'), ['action' => 'view', $message->id]) ?>
+                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $message->id]) ?>
+                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $message->id], ['confirm' => __('Are you sure you want to delete # {0}?', $message->id)]) ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
@@ -48,7 +48,7 @@
         </ul>
         <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
     </div>
-    <a href="/messages/add"><?= __('Новое сообщение') ?></a><hr>
-    <a href="/users/logout"><?= __('Выйти') ?></a><hr>
-    <a href="/users/add"><?= __('Войти') ?></a>
+    <a href="/messages/add"><?= __('New message') ?></a><hr>
+    <a href="/users/logout"><?= __('Log out') ?></a><hr>
+    <a href="/users/add"><?= __('Log in') ?></a>
 </div>

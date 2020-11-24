@@ -88,7 +88,7 @@
             <?= $this->Form->end() ?>
         </div>
     </div>
-    <a href='<?= "/{$message->id}/comments/add" ?>'><?= __("Добавить комментарий")?></a>
+    <a href='<?= "/{$message->id}/comments/add" ?>'><?= __("Add comment")?></a>
     </div>
     </div>
 </div>

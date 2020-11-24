@@ -16,7 +16,7 @@
            
             <?= $this->Form->create() ?>
             <fieldset>
-                <legend><?= __('Войти') ?></legend>
+                <legend><?= __('Log in') ?></legend>
                 <?php
                     echo $this->Form->control('name');
                 ?>
