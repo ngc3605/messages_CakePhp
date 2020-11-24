@@ -79,7 +79,7 @@
             <fieldset>
                 <legend><?= __('Add comments') ?></legend>
                 <?php
-                    echo $this->Form->control('commentContent');
+                    echo __($this->Form->control('commentContent'));
                         
                    
                 ?>

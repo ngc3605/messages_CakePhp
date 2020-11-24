@@ -24,7 +24,7 @@
                 </tr>
                 <tr>
                     <th><?= __('Id') ?></th>
-                    <td><?= $this->Number->format($user->id) ?></td>
+                    <td><?= __($this->Number->format($user->id)) ?></td>
                 </tr>
             </table>
         </div>

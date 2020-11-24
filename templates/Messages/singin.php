@@ -9,7 +9,7 @@
             <fieldset>
                 <legend><?= __('Представьтесь') ?></legend>
                 <?php
-                    echo $this->Form->control('user');
+                    __($this->Form->control('user'));
                     
                 ?>
             </fieldset>

@@ -22,9 +22,9 @@
             <fieldset>
                 <legend><?= __('Редактировать') ?></legend>
                 <?php
-                    echo $this->Form->control('title');
-                    echo $this->Form->control('preview');
-                    echo $this->Form->control('content');
+                    __($this->Form->control('title'));
+                    __($this->Form->control('preview'));
+                    __($this->Form->control('content'));
                     
                 ?>
             </fieldset>

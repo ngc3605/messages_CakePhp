@@ -22,9 +22,9 @@
             <fieldset>
                 <legend><?= __('Edit Comment') ?></legend>
                 <?php
-                    echo $this->Form->control('author_id', ['options' => $users]);
-                    echo $this->Form->control('content');
-                    echo $this->Form->control('message_id', ['options' => $messages]);
+                    __($this->Form->control('author_id', ['options' => $users]));
+                    __($this->Form->control('content'));
+                    __($this->Form->control('message_id', ['options' => $messages]));
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

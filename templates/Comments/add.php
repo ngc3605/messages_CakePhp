@@ -17,7 +17,7 @@
             <fieldset>
                 <legend><?= __('Add Comment') ?></legend>
                 <?php
-                    echo $this->Form->control('content');
+                    echo __($this->Form->control('content'));
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
