@@ -17,11 +17,11 @@
     </aside>
     <div class="column-responsive column-80">
         <div class="messages view content">
-            <h3><?= h($message->title) ?></h3>
+            <h3><?= __($message->title) ?></h3>
             <table>
                 <tr>
                     <th><?= __('Title') ?></th>
-                    <td><?= h($message->title) ?></td>
+                    <td><?= __($message->title) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('User') ?></th>
@@ -59,8 +59,8 @@
                         <?php foreach ($allComments as $value) : ?>
                         <tr>
                             
-                            <td><?= h($value->user->name) ?></td>
-                            <td><?= h($value->content) ?></td>
+                            <td><?= __($value->user->name) ?></td>
+                            <td><?= __($value->content) ?></td>
                             
                           
                         </tr>
@@ -87,10 +87,10 @@
             <?= $this->Form->button(__('Submit')) ?>
             <?= $this->Form->end() ?>
         </div>
-       
-     
     </div>
-
-        </div>
+    <a href='<?= "/{$message->id}/comments/add" ?>'><?= __("Добавить комментарий")?></a>
+    </div>
     </div>
 </div>
+
+

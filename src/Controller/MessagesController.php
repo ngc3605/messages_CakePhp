@@ -47,12 +47,12 @@ class MessagesController extends AppController
         $this->set(compact('allComments'));
         if ($this->request->is('post')) {
             $commentContent = $this->request->getData('commentContent');
-            if($this->request->getSession()->read('Session') != null){  
+            if($this->request->getSession()->read('Session')){  
                 $userName = $this->request->getSession()->read('Session');
             } else {
                 $userName = 'guest';
             }
-            $user_id = $this->Users->getUserIdByName($userName);
+            $user_id = $this->Messages->Users->getUserIdByName($userName);
             $newComment = $this->Messages->Comments->addNewComment($id, $commentContent, $user_id);
             if($newComment){
                 $this->redirect(
