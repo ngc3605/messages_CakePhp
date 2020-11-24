@@ -22,7 +22,8 @@ class MessagesController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      */
     public function index()
-    {            
+    {     
+               
         $messages = $this->paginate($this->Messages, ['limit'=> '5',
             'contain' => ['Users']
         ]);

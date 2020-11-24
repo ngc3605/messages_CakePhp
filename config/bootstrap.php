@@ -43,6 +43,7 @@ use Cake\Mailer\Mailer;
 use Cake\Mailer\TransportFactory;
 use Cake\Routing\Router;
 use Cake\Utility\Security;
+use Cake\I18n\I18n;
 
 /*
  * See https://github.com/josegonzalez/php-dotenv for API details.

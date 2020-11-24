@@ -1,0 +1,267 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2020-11-24 05:37+0000\n"
+"PO-Revision-Date: 2020-11-24 14:28+0700\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"X-Generator: Poedit 2.4.2\n"
+"Last-Translator: \n"
+"Language: ru_RU\n"
+
+#: Controller/CommentsController.php:81
+msgid "The comment has been saved."
+msgstr "Комментарий добавлен"
+
+#: Controller/CommentsController.php:84
+msgid "The comment could not be saved. Please, try again."
+msgstr "Не удалось добавить комментарий"
+
+#: Controller/CommentsController.php:103
+msgid "The comment has been deleted."
+msgstr "Комментарий был удален."
+
+#: Controller/CommentsController.php:105
+msgid "The comment could not be deleted. Please, try again."
+msgstr "Комментарий не удалось удалить. Пожалуйста, попробуй еще раз."
+
+#: Controller/MessagesController.php:96
+msgid "The message has been saved."
+msgstr "Сообщение сохранено."
+
+#: Controller/MessagesController.php:99
+msgid "The message could not be saved. Please, try again."
+msgstr "Сообщение не удалось сохранить. Пожалуйста, попробуй еще раз."
+
+#: Controller/MessagesController.php:117
+msgid "The message has been deleted."
+msgstr "Сообщение было удалено."
+
+#: Controller/MessagesController.php:119
+msgid "The message could not be deleted. Please, try again."
+msgstr "Сообщение не может быть удалено. Попробуйте снова"
+
+#: Controller/UsersController.php:82
+msgid "The user has been saved."
+msgstr "Пользователь сохранен"
+
+#: Controller/UsersController.php:86
+msgid "The user could not be saved. Please, try again."
+msgstr "Пользователь не был сохранен. Пожалуйста, попробуйте снова"
+
+#: Controller/UsersController.php:103
+msgid "The user has been deleted."
+msgstr "Пользователь был удален"
+
+#: Controller/UsersController.php:105
+msgid "The user could not be deleted. Please, try again."
+msgstr "Пользователь не смог быть удален. Пожалуйста, попробуйте снова"
+
+#: Comments/add.php:10 Comments/edit.php:10 Comments/index.php:18
+#: Comments/view.php:10 Messages/add.php:10 Messages/edit.php:10
+#: Messages/index.php:21 Messages/view.php:11 Users/add.php:10
+#: Users/edit.php:10 Users/index.php:17 Users/view.php:10
+msgid "Actions"
+msgstr "Действия"
+
+#: Comments/add.php:11 Comments/edit.php:16 Comments/view.php:13
+msgid "List Comments"
+msgstr "Список комментариев"
+
+#: Comments/add.php:18
+msgid "Add Comment"
+msgstr "Добавить комментарий"
+
+#: Comments/add.php:23 Comments/edit.php:30 Messages/edit.php:31
+#: Messages/singin.php:16 Messages/view.php:87 Users/add.php:24
+#: Users/edit.php:28
+msgid "Submit"
+msgstr "Отправить"
+
+#: Comments/edit.php:12 Comments/index.php:31 Messages/edit.php:12
+#: Messages/index.php:34 Users/edit.php:12 Users/index.php:28
+msgid "Delete"
+msgstr "Удалить"
+
+#: Comments/edit.php:14 Comments/index.php:31 Comments/view.php:12
+#: Messages/edit.php:14 Messages/index.php:34 Messages/view.php:13
+#: Users/edit.php:14 Users/index.php:28 Users/view.php:12
+msgid "Are you sure you want to delete # {0}?"
+msgstr "Вы уверены, что хотите удалить #{0}?"
+
+#: Comments/edit.php:23 Comments/view.php:11
+msgid "Edit Comment"
+msgstr "Редактировать комментарий"
+
+#: Comments/index.php:8 Comments/view.php:14
+msgid "New Comment"
+msgstr "Новый комментарий"
+
+#: Comments/index.php:9
+msgid "Comments"
+msgstr "Комментарии"
+
+#: Comments/index.php:29 Messages/index.php:32 Users/index.php:26
+#: View/Helper/PaginatorHelper.php:1268
+msgid "View"
+msgstr "Просмотреть"
+
+#: Comments/index.php:30 Messages/edit.php:23 Messages/index.php:33
+#: Users/index.php:27
+msgid "Edit"
+msgstr "Редактировать"
+
+#: Comments/index.php:40 Messages/index.php:43 Users/index.php:37
+msgid "first"
+msgstr "первый"
+
+#: Comments/index.php:41 Messages/index.php:44 Users/index.php:38
+msgid "previous"
+msgstr "предыдущая"
+
+#: Comments/index.php:43 Messages/index.php:46 Users/index.php:40
+msgid "next"
+msgstr "следующая"
+
+#: Comments/index.php:44 Messages/index.php:47 Users/index.php:41
+msgid "last"
+msgstr "последний"
+
+#: Comments/index.php:46 Messages/index.php:49 Users/index.php:43
+msgid ""
+"Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} "
+"total"
+msgstr ""
+"Страница {{page}} из {{pages}}, показывает {{current}} записей из "
+"{{count}} "
+
+#: Comments/view.php:12
+msgid "Delete Comment"
+msgstr "Удалить комментарий"
+
+#: Comments/view.php:22 Messages/view.php:27
+msgid "User"
+msgstr "Пользователь"
+
+#: Comments/view.php:26 Messages/view.php:42
+msgid "Content"
+msgstr "Текст"
+
+#: Comments/view.php:30
+msgid "Message"
+msgstr "Сообщение"
+
+#: Messages/add.php:11 Messages/edit.php:16
+msgid "All messages"
+msgstr "Все сообщения"
+
+#: Messages/add.php:18
+msgid "Add message"
+msgstr "Добавить сообщение"
+
+#: Messages/add.php:25
+msgid "Add"
+msgstr "Добавить"
+
+#: Messages/index.php:12
+msgid "Messages"
+msgstr "Сообщения"
+
+#: Messages/index.php:51
+msgid "New message"
+msgstr "Новое сообщение"
+
+#: Messages/index.php:52
+msgid "Log out"
+msgstr "Выйти"
+
+#: Messages/index.php:53 Users/add.php:19
+msgid "Log in"
+msgstr "Войти"
+
+#: Messages/singin.php:10
+msgid "Your name"
+msgstr "Ваше имя"
+
+#: Messages/view.php:12
+msgid "Edit Message"
+msgstr "Редактировать сообщение"
+
+#: Messages/view.php:13
+msgid "Delete Message"
+msgstr "Удалить сообщение"
+
+#: Messages/view.php:14
+msgid "List Messages"
+msgstr "Список сообщений"
+
+#: Messages/view.php:15
+msgid "New Message"
+msgstr "Новое сообщение"
+
+#: Messages/view.php:23
+msgid "Title"
+msgstr "Заголовок"
+
+#: Messages/view.php:31 Users/view.php:26
+msgid "Id"
+msgstr "Id"
+
+#: Messages/view.php:36
+msgid "Preview"
+msgstr "Превью"
+
+#: Messages/view.php:48
+msgid "Related Comments"
+msgstr "Комментарии к статье"
+
+#: Messages/view.php:54
+msgid "Author"
+msgstr "Автор"
+
+#: Messages/view.php:55
+msgid "Comment"
+msgstr "Комментарий"
+
+#: Messages/view.php:80
+msgid "Add comments"
+msgstr "Добавить комментарии"
+
+#: Messages/view.php:91
+msgid "Add comment"
+msgstr "Добавить комментарий"
+
+#: Users/add.php:11 Users/edit.php:16 Users/view.php:13
+msgid "List Users"
+msgstr "Список пользователей"
+
+#: Users/edit.php:23 Users/view.php:11
+msgid "Edit User"
+msgstr "Редактировать пользователя"
+
+#: Users/index.php:9 Users/view.php:14
+msgid "New User"
+msgstr "Новый пользователь"
+
+#: Users/index.php:10
+msgid "Users"
+msgstr "Пользователи"
+
+#: Users/view.php:12
+msgid "Delete User"
+msgstr "Удалить пользователя"
+
+#: Users/view.php:22
+msgid "Name"
+msgstr "Имя"
+
+#: layout/error.php:38
+msgid "Back"
+msgstr "Назад"
