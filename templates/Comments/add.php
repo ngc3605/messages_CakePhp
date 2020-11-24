@@ -18,7 +18,6 @@
                 <legend><?= __('Add Comment') ?></legend>
                 <?php
                     echo $this->Form->control('content');
-                    echo $this->Form->control('message_id', ['options' => $messages]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

@@ -91,18 +91,17 @@ class CommentsTable extends Table
     }
     public function addNewComment($id_message, $commentContent, $user_id)
     {
-        $comments = TableRegistry::getTableLocator()->get('Comments');
-        $comment = $comments->newEmptyEntity();
+        $comment = $this->newEmptyEntity();
         $comment->content = $commentContent;
         $comment->message_id = $id_message;
         $comment->author_id = $user_id;
-        $comments->save($comment);
+        $this->save($comment);
         return true;
     }
     public function getCommentsForMessage($id) 
     {
-        $comments = TableRegistry::getTableLocator()->get('Comments');
-        $allComments = $comments->find('all', [
+
+        $allComments = $this->find('all', [
             'conditions' => ['Comments.message_id' => $id],
             'contain' => ['Users']
         ]); 

@@ -46,6 +46,12 @@ $routes->setRouteClass(DashedRoute::class);
 
 $routes->scope('/', function (RouteBuilder $builder) {
     $builder->connect('/', ['controller' => 'Messages', 'action' => 'index']);
-    $builder->connect('/comments/add', ['controller' => 'Comments', 'action' => 'add']);
+    
+    $builder->connect(
+        '/{id}/comments/add', 
+        ['controller' => 'Comments', 'action' => 'add'],
+        ['id' => '\d+', 'pass' => ['id']]
+    );
+    
     $builder->fallbacks();
 });

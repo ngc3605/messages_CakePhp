@@ -39,12 +39,10 @@ class MessagesController extends AppController
      */
     public function view($id = null)
     {
-        $this->loadModel('Users');
-        $this->loadModel('Comments');
         $message = $this->Messages->get($id, [
             'contain' => ['Users'],
         ]);
-        $allComments = $this->Comments->getCommentsForMessage($id);
+        $allComments = $this->Messages->Comments->getCommentsForMessage($id);
         $this->set(compact('message'));
         $this->set(compact('allComments'));
         if ($this->request->is('post')) {
@@ -55,7 +53,7 @@ class MessagesController extends AppController
                 $userName = 'guest';
             }
             $user_id = $this->Users->getUserIdByName($userName);
-            $newComment = $this->Comments->addNewComment($id, $commentContent, $user_id);
+            $newComment = $this->Messages->Comments->addNewComment($id, $commentContent, $user_id);
             if($newComment){
                 $this->redirect(
                     ['controller' => 'Messages', 'action' => 'index']

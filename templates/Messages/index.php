@@ -48,7 +48,7 @@
         </ul>
         <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
     </div>
-    <a href="/messages/add">Новое сообщение</a><hr>
-    <a href="/users/logout">Выйти</a><hr>
-    <a href="/users/add">Войти</a>
+    <a href="/messages/add"><?= __('Новое сообщение') ?></a><hr>
+    <a href="/users/logout"><?= __('Выйти') ?></a><hr>
+    <a href="/users/add"><?= __('Войти') ?></a>
 </div>

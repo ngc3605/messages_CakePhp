@@ -100,21 +100,19 @@ class MessagesTable extends Table
     public function addMessage($data, $user){
         if($user == null) {
             $user = 'guest';   
-        }
-        $users = TableRegistry::getTableLocator()->get('Users');
-        $messages = TableRegistry::getTableLocator()->get('Messages');
+        } 
         $title = $data['title'];
         $content = $data['content'];
         $preview = $data['preview'];
-        $user_id = $users->getUserIdByName($user);
-        $message = $messages->newEmptyEntity();
-        $messages->patchEntity($message, [
+        $user_id = $this->Users->getUserIdByName($user);
+        $message = $this->newEmptyEntity();
+        $this->patchEntity($message, [
             'title' => $title,
             'content' => $content,
             'preview' => $preview,
             'author_id' => $user_id
         ]);
-        $messages->save($message);
+        $this->save($message);
         return true; 
     }
 }

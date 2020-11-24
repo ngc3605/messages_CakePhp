@@ -45,14 +45,17 @@ class CommentsController extends AppController
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($id)
     {
-        $messages = $this->Comments->Messages->find('list', ['limit' => 200]);
-        $userId = $this->Comments->Users->getUserIdByName($this->request->getSession()->read('Session'));
-        $this->set(compact('messages'));
+        if($this->request->getSession()->read('Session')) {
+            $userId = $this->Comments->Users->getUserIdByName($this->request->getSession()->read('Session'));
+        } else {
+            $userId = $this->Comments->Users->getUserIdByName('guest');
+        }
+        
         if($this->request->is('post')){
             $this->Comments->addNewComment(
-                $this->request->getData()['message_id'], 
+                $id, 
                 $this->request->getData()['content'],
                 $userId
             );

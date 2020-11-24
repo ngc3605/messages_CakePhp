@@ -71,23 +71,21 @@ class UsersTable extends Table
     }
     public function addUser($data)
     {
-        $users = TableRegistry::getTableLocator()->get('Users');
         $name = $data['name'];
-        $user = $users->newEmptyEntity();
+        $user = $this->newEmptyEntity();
         $user->name = $name;
-        $users->save($user);
-        $user_id = $users->getUserIdByName($name);
+        $this->save($user);
+        $user_id = $this->getUserIdByName($name);
         return $user_id;
     }
     public function getUserIdByName($name)
     {
         $user = '';
-        $users = TableRegistry::getTableLocator()->get('Users');
-        $user = $users->find()
+        $user = $this->find()
             ->where(['name' => $name])
             ->first();
         if($user == ''){
-            $userId = $users->addUser(['name' => $name]);
+            $userId = $this->addUser(['name' => $name]);
         } else {
             $userId = $user->id;
         }

@@ -16,11 +16,11 @@
     </aside>
     <div class="column-responsive column-80">
         <div class="users view content">
-            <h3><?= h($user->name) ?></h3>
+            <h3><?= __($user->name) ?></h3>
             <table>
                 <tr>
                     <th><?= __('Name') ?></th>
-                    <td><?= h($user->name) ?></td>
+                    <td><?= __($user->name) ?></td>
                 </tr>
                 <tr>
                     <th><?= __('Id') ?></th>
