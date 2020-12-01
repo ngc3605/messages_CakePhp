@@ -5,7 +5,7 @@
  */
 ?>
 <div class="messages index content">
-  
+
 
 
 
@@ -14,7 +14,7 @@
         <table>
             <thead>
                 <tr>
-                    
+
                     <th><?= $this->Paginator->sort('title') ?></th>
                     <th><?= $this->Paginator->sort('preview') ?></th>
                     <th><?= $this->Paginator->sort('author_id') ?></th>
@@ -24,7 +24,7 @@
             <tbody>
                 <?php foreach ($messages as $message): ?>
                 <tr>
-                    
+
                     <td><?= h($message->title) ?></td>
                     <td><?= h($message->preview) ?></td>
                     <td><?= $message->has('user') ? $this->Html->link($message->user->name, ['controller' => 'Users', 'action' => 'view', $message->user->id]) : '' ?></td>
